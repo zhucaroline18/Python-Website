@@ -1,0 +1,125 @@
+<!-- base template will be things throughout whole website, like navbar etc
+can create other templates that will override it for specific pages 
+so everything same except main content of page-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+            crossorigin="anonymous"
+        />
+
+        <!-- bootstrap brings link to cdn with content delivery network allowing you to load without downloading file custom css and html 
+        will have lots of classes to make things look a lot nicer. 
+        this loads the css we need without having to code it ourself-->
+
+        <title>{% block title %}Home{% endblock %}</title>
+        <!-- Jinga allows you to write some python inside html file
+        usually simpler syntax in the % 
+        can write if statements or for loops etc or you can write a block 
+        block template that can be overridden in child template 
+        child can change what's in block like title of website 
+        in child template, can define this block and anythign inside like home will override the title from say, home, to sign up --> 
+
+
+    </head>
+    <body>
+        <nav class = "navbar navbar-expand-lg navbar-light" style = "background-color: #F8C8BE;">
+            <button 
+                class = "navbar-toggler" 
+                type = "button" 
+                data-toggle = "collapse" 
+                data-target = "#navbar"
+            >
+                <span class = "navbar-toggler-icon"></span>
+            </button>
+
+            
+
+            <div class = "collapse navbar-collapse" id = "navbar">
+                <div class = "navbar-nav">
+                    {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" id = "home" href = "/">Home</a>
+                    <a class="nav-item nav-link" id = "trackProgress" href = "/track">Track Progress</a>
+                    <a class="nav-item nav-link" id = "logout" href = "/logout">Logout</a>
+                    {% else %}
+                    <a class="nav-item nav-link" id = "login" href = "/login">Login</a>
+                    <a class="nav-item nav-link" id = "signUp" href = "/sign-up">Sign Up</a>
+                    {%endif%}
+
+                </div>
+            </div>
+
+            <a class = "navbar-brand" href = "#">
+                <img src = "./static/OfficialRadishLogo.PNG" width = "44" height = "55" class = "d-inline-block alignt-top" alt = "">
+                Radish Tracker
+            </a>
+
+            <!--
+            <span class = "navbar-brand mb-0 h1">Radish Tracker</span>
+
+            -->
+            
+        </nav>
+
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+            messages %} {% for category, message in messages %} {% if category ==
+            'error' %}
+            <div class="alert alert-danger alter-dismissable fade show" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% else %}
+            <div class="alert alert-success alter-dismissable fade show" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+        <div class = "container">
+        {% block content %}
+        {% endblock %}
+        </div>
+
+        <!--going to load javascript related to bootstrap
+        has fancy animations and stuff and css framework and cool buttons that use javascript 
+        put at bottom of body, all other html above it -->
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+        ></script>
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+        ></script>
+        <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"
+        ></script>
+
+        <script
+        type="text/javascript"
+        src="{{ url_for('static', filename='index.js') }}"
+        ></script>
+            <!-- if you want own things, put images javascript into static folder or css 
+            when you put them in static folder, can load them into html by -->
+
+    </body>
+</html>
