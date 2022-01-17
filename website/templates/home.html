@@ -6,12 +6,15 @@
     <ul class="list-group list-group-flush" id="notes">
       {% for note in user.notes %}
       <li class="list-group-item">
-        {{ note.data }}
-        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-        <!--<button type = "button" class="btn peach-gradient" onClick = "deleteNote({{note.id}})">Done</button>-->
-
+        <span>
+          <input class="form-check-input" type="checkbox" value="" onClick = "strikethrough(this)">
+          {{ note.data }}
+        </span>
+        <button type="button" class = "close" onClick="deleteNote({{ note.id }})">
+          <!--<button type = "button" class="btn peach-gradient" onClick = "deleteNote({{note.id}})">Done</button>-->
           <span aria-hidden="true">&times;</span>
         </button>
+        
       </li>
       {% endfor %}
     </ul>
