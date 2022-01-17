@@ -40,8 +40,10 @@ def delete_note():
     note = json.loads(request.data)
     noteId = note['noteId']
     note = Note.query.get(noteId)
+    
     if note:
         if note.user_id == current_user.id:
+            current_user.amount_completed = current_user.amount_completed+1
             db.session.delete(note)
             db.session.commit()
     return jsonify({})  

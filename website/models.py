@@ -30,5 +30,6 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     amount_completed = db.Column(db.Integer)
     notes = db.relationship('Note') #list storing all different notes 
+    #history = db.relationship('Note')
     
 
