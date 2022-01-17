@@ -7,6 +7,7 @@ function deleteNote(noteId){
     });
 }
 
+
 function strikethrough(node) {
     if (node.checked) {
         console.log("Checked")
@@ -17,5 +18,7 @@ function strikethrough(node) {
         console.log("Unchecked");
     }
 }
+
+
 //takes note id we pass and send post request to delete note endpoint
 //after response, reload window and redirects to home page and refreshes page 

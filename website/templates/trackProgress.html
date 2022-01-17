@@ -1,48 +1,46 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
     %}
     <br />
-    <h1 align="center">Stats</h1>
-    <br/>
+    <h1 align = "center" style = "color:#F8E5BE">{{ user.amount_completed }}</h2>
+
     <h2 align = "center">Tasks Completed</h2>
-    <h2 align = "center">{{ user.amount_completed }}</h2>
-
     <br/>
-
+    <br/>
     {% if (user.amount_completed<10) %}
-        <h5 align = "center">Complete 10 tasks to level up</h5>
+        <h5 align = "center">Complete 10 tasks to grow your radish</h5>
         <br/>
         <div align = "center">
             <img src="./static/stage1.png" width = "400" height = "400" class = "center">
         </div>
     
     {% elif (user.amount_completed<20) %}
-        <h5 align = "center">Complete 20 tasks to level up</h5>
+        <h5 align = "center">Complete 20 tasks to grow your radish</h5>
         <br/>
         <div align = "center">
             <img src="./static/stage2.png" width = "400" height = "400" class = "center">
         </div>
 
     {% elif (user.amount_completed<30) %}
-        <h5 align = "center">Complete 30 tasks to level up</h5>
+        <h5 align = "center">Complete 30 tasks to grow your radish</h5>
         <br/>
         <div align = "center">
             <img src="./static/stage3.png" width = "400" height = "400" class = "center">
         </div>
     {% elif (user.amount_completed<40) %}
-        <h5 align = "center">Complete 40 tasks to level up</h5>
+        <h5 align = "center">Complete 40 tasks to grow your radish</h5>
         <br/>
         <div align = "center">
             <img src="./static/stage4.png" width = "400" height = "400" class = "center">
         </div>
 
     {% elif (user.amount_completed<50) %}
-        <h5 align = "center">Complete 50 tasks to level up</h5>
+        <h5 align = "center">Complete 50 tasks to grow your radish</h5>
         <br/>
         <div align = "center">
             <img src="./static/OfficialRadishLogo.png" width = "400" height = "400" class = "center">
         </div>
 
-    {% elif (user.amount_completed<60) %}
+    {% else %}
         <h5 align = "center">Complete 60 tasks to level up</h5>
         <br/>
         <div align = "center">
