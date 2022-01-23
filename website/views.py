@@ -4,6 +4,8 @@ from flask_login import login_required, current_user
 from .models import Note
 from . import db
 import json
+from datetime import datetime
+
 #separate app so don't have all views in one file but multiple files 
 
 #now set up blueprint for flask application 
@@ -24,7 +26,7 @@ def home():
             db.session.commit() #committing to the database 
             #flash('Note Added!', category = 'success')
 
-    return render_template("home.html", user = current_user) #in our template ,can check our current user 
+    return render_template("home.html", user = current_user, today = datetime.now()) #in our template ,can check our current user 
 
 #tracking time 
 #probably need to add something to the database to keep track of how many tasks completed 
@@ -32,6 +34,23 @@ def home():
 @login_required
 def trackProgress():
     return render_template("trackProgress.html", user = current_user)
+
+
+@views.route('/set-deadline', methods = ['POST'])
+# basically the website and then with this after will be the url to the sign up page that displays signup
+def set_deadline():
+    if request.method == 'POST':
+        #retrieving information from the form 
+        note = json.loads(request.data)
+        noteId = note['noteId']
+        deadline_str = note['date']
+        deadline = datetime.fromisoformat(deadline_str)
+        note = Note.query.get(noteId)
+
+        note.date = deadline
+        db.session.commit()
+    return jsonify({})
+
 
 @views.route('/calendar')
 @login_required

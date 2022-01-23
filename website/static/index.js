@@ -10,13 +10,25 @@ function deleteNote(noteId){
 
 function strikethrough(node) {
     if (node.checked) {
-        console.log("Checked")
+        //console.log("Checked")
         node.parentNode.style.textDecoration  = "line-through";
     }
     else {
         node.parentNode.style.textDecoration  = "";
-        console.log("Unchecked");
+        //console.log("Unchecked");
     }
+}
+
+function dateChanged(node, noteId) {
+    console.log("dateChanged to " + node.value);
+
+    fetch('/set-deadline', {
+        method: 'POST',
+        body: JSON.stringify({ noteId: noteId, date: node.value })
+    }).then((_res)=> {
+        window.location.href = "/";
+    });
+
 }
 
 

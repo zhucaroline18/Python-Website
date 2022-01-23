@@ -2,24 +2,60 @@
     %}
     <br />
     <h1 align="center" style = "color:black">Tasks</h1>
+    <div align = "center" 
+      <span style = "color: #e24e42">Urgent&emsp;</span>
+      <span style = "color: #e9b000">In a week&emsp;</span> 
+      <span style = "color: #008f95">Long-term</span>
+    </div>
     
     <ul class="list-group list-group-flush" id="notes">
       {% for note in user.notes %}
       <li class="list-group-item">
-        <span>
-          <input class="form-check-input" type="checkbox" value="" onClick = "strikethrough(this)">
-          {{ note.data }}
-        </span>
-        <button type="button" class = "close" onClick="deleteNote({{ note.id }})">
-          <!--<button type = "button" class="btn peach-gradient" onClick = "deleteNote({{note.id}})">Done</button>-->
-          <span aria-hidden="true">&times;</span>
-        </button>
+        
+        {% if (note.date-today).days <= 2 %}
+          <span style = "color: #e24e42">
+            <input class="form-check-input" type="checkbox" value="" onClick = "strikethrough(this)">
+            
+            <strong>{{ note.data }}</strong>
+          </span>
+        {% elif (note.date-today).days <= 7 %}
+          <span style = "color: #e9b000">
+            <input class="form-check-input" type="checkbox" value="" onClick = "strikethrough(this)">
+            
+            {{ note.data }}
+          </span>
+        {% else %}
+          <span style = "color: #008f95">
+            <input class="form-check-input" type="checkbox" value="" onClick = "strikethrough(this)">
+            
+            {{ note.data }}
+          </span>
+
+        {% endif %}
+
+        <span class="float-right">
+          <input method = "POST"
+            type="date" 
+            id = "deadline"
+            name = "deadline"
+            value="{{note.date.strftime('%Y-%m-%d')}}"
+            onchange="dateChanged(this, {{ note.id }})"
+            min="{{ today.strftime('%Y-%m-%d') }}"
+          />
+          <button type="button" class = "close" onClick="deleteNote({{ note.id }})">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </span>        
         
       </li>
       {% endfor %}
     </ul>
     <form method="POST">
-      <textarea name="note" id="note" class="form-control"></textarea>
+      <textarea 
+        name="note" 
+        id="note" 
+        class="form-control">
+      </textarea>
       <br />
       <div align="center">
         <button type="submit" class="btn btn-dark">Add Task</button>
