@@ -1,12 +1,12 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
-    %}
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
     <br />
     <h1 align="center" style = "color:black">Tasks</h1>
     <div align = "center" 
       <span style = "color: #e24e42">Urgent&emsp;</span>
-      <span style = "color: #e9b000">In a week&emsp;</span> 
+      <span style = "color: #e9b000">Priority&emsp;</span> 
       <span style = "color: #008f95">Long-term</span>
     </div>
+    <br/>
     
     <ul class="list-group list-group-flush" id="notes">
       {% for note in user.notes %}
@@ -61,4 +61,4 @@
         <button type="submit" class="btn btn-dark">Add Task</button>
       </div>
     </form>
-    {% endblock %}
+  {% endblock %}
